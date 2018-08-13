@@ -1,15 +1,12 @@
-import * as MIXPANEL from './services/mixPanelServices'
-import { getBrowserDetails } from './utils/getBrower';
-import {getUserDetails} from './utils/userDetails';
+import * as MIXPANEL from "./services/mixPanelServices";
+import { getUserDetails, getLocation } from "./utils/userDetails";
 
-MIXPANEL.tract('UPDATE_PROFILE', {
-  details :getUserDetails()
-});
+const getLoc = async () => {
+  let l = await getLocation();
 
-
-
-
-
-
-
-
+  MIXPANEL.tract("UPDATE_PROFILE", {
+    details: getUserDetails(),
+    user: l
+  });
+};
+getLoc();
