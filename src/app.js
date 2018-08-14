@@ -42,12 +42,14 @@ const page = () => {
     title : 'Home',
     keywords : ['home', 'news', 'top', 'hello']
   })
+  .then(data => console.log(data))
+  .catch(err => console.log(err))
 }
 
 
-
-  // identify();
-  // track();
+// identify();
+// track();
+// page();
 
 
 
