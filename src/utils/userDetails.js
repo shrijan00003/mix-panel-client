@@ -204,8 +204,8 @@ export async function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var user_position = {};
-        user_position.lat = position.coords.latitude;
-        user_position.lng = position.coords.longitude;
+        user_position.latitude = position.coords.latitude;
+        user_position.longitude = position.coords.longitude;
         resolve(user_position);
       });
     } else {
