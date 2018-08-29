@@ -1,24 +1,23 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   entry: {
-    app: [
-      'babel-polyfill',
-      './src/app.js',
-    ],
+    app: ["babel-polyfill", "./src/app.js"]
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'app.bundle.js',
+    path: path.resolve(__dirname, "build"),
+    filename: "lft-mixpanel-user-library.js"
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         query: {
-           presets: ['env', 'stage-0']
+          presets: ["env", "stage-0"]
         }
-    }]
+      }
+    ]
   }
-}
+};
