@@ -1,4 +1,4 @@
-import * as MIXPANEL from "./services/mixPanelServices";
+import "./services/mixPanelServices";
 
 // /**
 //  * MIXPANEL.configure() function to identifiy for the very first time
