@@ -26,6 +26,17 @@ export async function configure(params) {
   }
 }
 
+export async function disconfigure() {
+  try {
+    const res = http.post(`mixpanel/disconfigure`);
+  } catch (err) {
+    console.log(
+      "error occured while disconfiguring client details please check your apikey and email" +
+        err
+    );
+  }
+}
+
 export async function identify(params = {}) {
   try {
     const { userId, userEmail, userName, userDetails, ...rest } = params;
