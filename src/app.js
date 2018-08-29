@@ -1,4 +1,6 @@
-import "./services/mixPanelServices";
+import * as MIXPANEL from "./services/mixPanelServices";
+
+export default MIXPANEL;
 
 // /**
 //  * MIXPANEL.configure() function to identifiy for the very first time
