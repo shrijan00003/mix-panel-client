@@ -1,5 +1,7 @@
 import * as MIXPANEL from "./services/mixPanelServices";
 
+window.MIXPANEL = MIXPANEL;
+
 export default MIXPANEL;
 
 // /**
