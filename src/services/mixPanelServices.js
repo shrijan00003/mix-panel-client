@@ -10,9 +10,15 @@ export async function configure(params) {
   try {
     const { apiKey, email } = params;
 
-    const savedData = await saveInLocalStorage(apiKey, email);
+    // const savedData = await saveInLocalStorage(apiKey, email);
+    const res = http.post(`mixpanel/configure`, {
+      data: {
+        clientId: apiKey,
+        email
+      }
+    });
 
-    if (savedData) {
+    if (res) {
       return true;
     }
   } catch (err) {
@@ -55,7 +61,7 @@ export async function identify(params = {}) {
     const metadataId = await localStorage.getItem("metadataId");
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
 
-    if (metadataId === null && isConfigured) {
+    if (metadataId === null) {
       const metaData = {
         ...userInfo,
         ...deviceMetaData
