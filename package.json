@@ -1,8 +1,8 @@
 {
   "name": "mixpanel-user-library",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "User-library for lft-mixpanel",
-  "main": "lft-mixpanel-user-library.js",
+  "main": "index.js",
   "repository": "https://github.com/shrijan00003/mix-panel-client",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,7 @@
   },
   "author": "Shrijan Tripathi and Team <shrijan00003@gmail.com> ",
   "license": "MIT",
-  "unpkg": "lft-mixpanel-user-library.js",
+  "unpkg": "index.js",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.5",
@@ -30,6 +30,6 @@
     "uuid": "^3.3.2"
   },
   "files": [
-    "lft-mixpanel-user-library.js"
+    "index.js"
   ]
 }
