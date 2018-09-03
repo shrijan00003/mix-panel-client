@@ -1,72 +1,28 @@
 import * as MIXPANEL from "./services/mixPanelServices";
 
-window.MIXPANEL = MIXPANEL;
+// window.MIXPANEL = MIXPANEL;
 
-export default MIXPANEL;
+module.exports.default = MIXPANEL;
 
-// /**
-//  * MIXPANEL.configure() function to identifiy for the very first time
-//  *
-//  */
+// (function() {
+//   // Establish the root object, `window` in the browser, or `global` on the server.
+//   var root = this;
 
-// const configure = () => {
-//   return MIXPANEL.configure({
-//     apiKey: "e84ac190-a6a8-11e8-92de-eb79ccdc12e6",
-//     email: "shrijan00003@gmail.com"
-//   })
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err));
-// };
+//   // Create a reference to this
+//   var _ = new Object();
 
-// const identify = () => {
-//   return MIXPANEL.identify({
-//     userId: "1111111",
-//     userEmail: "st@gmail.com",
-//     userName: "st",
-//     userDetails: {
-//       name: "shrijan triapthi",
-//       addrss: "kapan"
-//     }
-//   })
-//     .then(data => console.log(data))
-//     .catch(err => console.error(err));
-// };
+//   var isNode = false;
 
-// /**
-//  *
-//  */
+//   // Export the Underscore object for **CommonJS**, with backwards-compatibility
+//   // for the old `require()` API. If we're not in CommonJS, add `_` to the
+//   // global object.
+//   if (typeof module !== "undefined" && module.exports) {
+//     module.exports = _;
+//     root._ = _;
+//     isNode = true;
+//   } else {
+//     root._ = _;
+//   }
+// })();
 
-// const track = () => {
-//   MIXPANEL.track({
-//     name: "deleting facebook Account",
-//     eventName: "delete_account",
-//     payload: {
-//       user: "shrijan sharma",
-//       change: "Account Delete",
-//       reaseon: "feels insecure"
-//     }
-//   })
-//     .then(data => console.log(data))
-//     .catch(err => console.error(err));
-// };
-
-// /**
-//  *
-//  */
-// const page = () => {
-//   MIXPANEL.page({
-//     name: "Google Home",
-//     title: "google",
-//     keywords: ["home", "news", "top", "hello"]
-//   })
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err));
-// };
-
-// configure().then(() => {
-//   identify();
-// });
-// // track();
-// // page();
-
-// // MIXPANEL.getallMetadata();
+// export default MIXPANEL;

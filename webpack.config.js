@@ -5,9 +5,12 @@ module.exports = {
     app: ["babel-polyfill", "./src/app.js"]
   },
   output: {
-    path: path.resolve(__dirname, "build"),
-    filename: "lft-mixpanel-user-library.js"
+    library: "mixpanel-user-library",
+    libraryTarget: "umd",
+    path: path.resolve(__dirname),
+    filename: "index.js"
   },
+  target: "node",
   module: {
     rules: [
       {

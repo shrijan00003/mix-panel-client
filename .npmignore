@@ -1,5 +1,8 @@
-node_modules
+.vscode
 src
+.gitignore
 index.html
 webpack.config.js
 yarn.lock
+package.json
+
