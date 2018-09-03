@@ -1,6 +1,6 @@
 {
   "name": "mixpanel-user-library",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "User-library for lft-mixpanel",
   "main": "build/lft-mixpanel-user-library.js",
   "repository": "https://github.com/shrijan00003/mix-panel-client",
@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
     "build": "webpack --mode production --progress",
-    "prepublish": "yarn run build"
+    "prepublish": "npm run build"
   },
   "author": "Shrijan Tripathi and Team <shrijan00003@gmail.com> ",
   "license": "MIT",
@@ -28,9 +28,6 @@
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
     "uuid": "^3.3.2"
-  },
-  "engines": {
-    "node": ">=8.11.4"
   },
   "files": [
     "build/lft-mixpanel-user-library.js"
