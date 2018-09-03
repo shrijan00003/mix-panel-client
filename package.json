@@ -1,6 +1,6 @@
 {
   "name": "mixpanel-user-library",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "User-library for lft-mixpanel",
   "main": "index.js",
   "repository": "https://github.com/shrijan00003/mix-panel-client",
