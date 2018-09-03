@@ -1,42 +1,64 @@
-# Mix Panel Client
+/\*\*
 
-A starter pack to build JavaScript applications using standards from ES2015, ES2016 & ES2017. It uses webpack, Babel and webpack-dev-server to compile and serve. It is fully compatible with Async/Await as it uses the Babel polyfill.
+- MIXPANEL.configure() function to identifiy for the very first time
+- \*/
 
-### Version
-1.0.0
+const configure = () => {
+return MIXPANEL.configure({
+apiKey: "e84ac190-a6a8-11e8-92de-eb79ccdc12e6",
+email: "shrijan00003@gmail.com"
+})
+.then(data => console.log(data))
+.catch(err => console.log(err));
+};
 
-## Usage
+const identify = () => {
+return MIXPANEL.identify({
+userId: "1111111",
+userEmail: "st@gmail.com",
+userName: "st",
+userDetails: {
+name: "shrijan triapthi",
+addrss: "kapan"
+}
+})
+.then(data => console.log(data))
+.catch(err => console.error(err));
+};
 
-### Installation
+/\*\* \*
+\*/
 
-Install the dependencies
+const track = () => {
+MIXPANEL.track({
+name: "deleting facebook Account",
+eventName: "delete_account",
+payload: {
+user: "shrijan sharma",
+change: "Account Delete",
+reaseon: "feels insecure"
+}
+})
+.then(data => console.log(data))
+.catch(err => console.error(err));
+};
 
-```sh
-$ npm install
-```
+/\*\* \*
+\*/
+const page = () => {
+MIXPANEL.page({
+name: "Google Home",
+title: "google",
+keywords: ["home", "news", "top", "hello"]
+})
+.then(data => console.log(data))
+.catch(err => console.log(err));
+};
 
-### Serve
-To serve in the browser  - Runs webpack-dev-server
+configure().then(() => {
+identify();
+});
+// track();
+// page();
 
-```sh
-$ npm start
-```
-
-### Build
-Compile and build
-
-```sh
-$ npm run build
-```
-
-## More Info
-
-### Author
-Akash Rai ```
-Shrijan Tripathi
-Ankita Sharma
-
-
-### License
-
-This project is licensed under the MIT License
+// MIXPANEL.getallMetadata();
