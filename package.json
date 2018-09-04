@@ -1,6 +1,6 @@
 {
   "name": "mixpanel-user-library",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "User-library for lft-mixpanel",
   "main": "lib/index.js",
   "unpkg": "umd/index.js",
