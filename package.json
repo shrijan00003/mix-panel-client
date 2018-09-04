@@ -1,8 +1,8 @@
 {
   "name": "mixpanel-user-library",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "User-library for lft-mixpanel",
-  "main": "lib/index.js",
+  "browser": "lib/index.js",
   "unpkg": "umd/index.js",
   "repository": "https://github.com/shrijan00003/mix-panel-client",
   "scripts": {
