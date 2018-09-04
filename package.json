@@ -1,6 +1,6 @@
 {
   "name": "mixpanel-user-library",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "User-library for lft-mixpanel",
   "browser": "lib/index.js",
   "unpkg": "umd/index.js",
@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "yarn build && webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
-    "build": "webpack --mode production --progress"
+    "build": "webpack --mode production --progress",
+    "prepublishOnly": "yarn build || npm run build"
   },
   "author": "Shrijan Tripathi and Team <shrijan00003@gmail.com> ",
   "license": "MIT",

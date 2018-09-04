@@ -10,7 +10,6 @@ export async function configure(params) {
   try {
     const { apiKey, email } = params;
 
-    // const savedData = await saveInLocalStorage(apiKey, email);
     const res = http.post(`mixpanel/configure`, {
       data: {
         clientId: apiKey,
@@ -19,6 +18,7 @@ export async function configure(params) {
     });
 
     if (res) {
+      const savedData = await saveInLocalStorage(email);
       return true;
     }
   } catch (err) {
@@ -28,7 +28,11 @@ export async function configure(params) {
 
 export async function disconfigure() {
   try {
-    const res = http.post(`mixpanel/disconfigure`);
+    const res = http.post(`mixpanel/disconfigure`, {
+      data: {
+        email: localStorage.getItem("clientEmail")
+      }
+    });
   } catch (err) {
     console.log(
       "error occured while disconfiguring client details please check your apikey and email" +
@@ -40,6 +44,10 @@ export async function disconfigure() {
 export async function identify(params = {}) {
   try {
     const { userId, userEmail, userName, userDetails, ...rest } = params;
+    const isConfigured = await checkIfConfigured();
+    if (!isConfigured) {
+      return;
+    }
 
     if (userId) {
       const userInfo = {
@@ -54,23 +62,28 @@ export async function identify(params = {}) {
       await localStorage.setItem("userInfo", data);
     } else {
       // create userid and other info
+      if (!localStorage.getItem("userInfo")) {
+        const userInfo = {
+          userId: UID(),
+          userName: "test",
+          userDetails: null,
+          userEmail: "test@mail.com"
+        };
 
-      const userInfo = {
-        userId: UID(),
-        userName: "test",
-        userDetails: null,
-        userEmail: "test@mail.com"
-      };
-
-      //save in local storage
-      const data = JSON.stringify(userInfo);
-      await localStorage.setItem("userInfo", data);
+        //save in local storage
+        const data = JSON.stringify(userInfo);
+        await localStorage.setItem("userInfo", data);
+      }
     }
 
     const deviceMetaData = await getAllMetadata();
-    const isConfigured = await checkIfConfigured();
     const metadataId = await localStorage.getItem("metadataId");
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+
+    if (!isConfigured) {
+      console.log("please configure at first");
+      return;
+    }
 
     if (metadataId === null) {
       const metaData = {
@@ -80,6 +93,7 @@ export async function identify(params = {}) {
 
       const response = await http.post(`mixpanel/identify`, {
         data: {
+          email: localStorage.getItem("clientEmail"),
           metaData
         }
       });
@@ -96,10 +110,9 @@ export async function identify(params = {}) {
 }
 
 const checkIfConfigured = () => {
-  const clientId = localStorage.getItem("clientId");
-  const email = localStorage.getItem("email");
+  const email = localStorage.getItem("clientEmail");
 
-  return clientId && email ? true : false;
+  return email ? true : false;
 };
 
 export async function track(params = {}) {
@@ -215,10 +228,9 @@ async function getPageInfo() {
   };
 }
 
-async function saveInLocalStorage(apiKey, email) {
+async function saveInLocalStorage(email) {
   try {
-    await localStorage.setItem("clientId", apiKey);
-    await localStorage.setItem("email", email);
+    await localStorage.setItem("clientEmail", email);
 
     return true;
   } catch (err) {
