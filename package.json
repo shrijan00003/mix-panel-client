@@ -6,7 +6,7 @@
   "repository": "https://github.com/shrijan00003/mix-panel-client",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
+    "start": "npm run build && webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
     "build": "webpack --mode production --progress",
     "prepublishOnly": "npm run build"
   },
@@ -27,6 +27,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
+    "socket.io-client": "^2.1.1",
     "uuid": "^3.3.2"
   }
 }

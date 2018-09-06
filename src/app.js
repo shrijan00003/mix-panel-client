@@ -2,7 +2,9 @@ import * as MIXPANEL from "./services/mixPanelServices";
 
 // window.MIXPANEL = MIXPANEL;
 
-module.exports.default = MIXPANEL;
+MIXPANEL.configure({ email: "shrijan00003@gmail.com", apiKey: "abc123" });
+MIXPANEL.identify();
+// module.exports.default = MIXPANEL;
 
 // (function() {
 //   // Establish the root object, `window` in the browser, or `global` on the server.

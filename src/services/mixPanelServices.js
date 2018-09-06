@@ -1,16 +1,18 @@
-import http from "../utils/http";
-import { getUserDetails, getLocation } from "../utils/userDetails";
-import { getFirstWord, getLastWord } from "../utils/lodash";
 import UID from "uuid/v1";
+import http from "../utils/http";
+import socketIO from "socket.io-client";
+import { getFirstWord, getLastWord } from "../utils/lodash";
+import { getUserDetails, getLocation } from "../utils/userDetails";
 
-let isNewUser = false;
-let metadataId = undefined;
+// let isNewUser = false;
+// let metadataId = undefined;
+let clientEmail = null;
 
 export async function configure(params) {
   try {
     const { apiKey, email } = params;
 
-    // const savedData = await saveInLocalStorage(apiKey, email);
+    const savedData = await saveInLocalStorage(apiKey, email);
     const res = http.post(`mixpanel/configure`, {
       data: {
         clientId: apiKey,
@@ -18,7 +20,7 @@ export async function configure(params) {
       }
     });
 
-    if (res) {
+    if (savedData) {
       return true;
     }
   } catch (err) {
@@ -52,19 +54,26 @@ export async function identify(params = {}) {
       // saving in localstorage
       const data = JSON.stringify(userInfo);
       await localStorage.setItem("userInfo", data);
+
+      clientEmail = await localStorage.getItem("clientEmail");
+      liveRequestToServer(userInfo, clientEmail);
     } else {
       // create userid and other info
-
+      console.log("hello");
+      // if (!localStorage.getItem("userInfo")) {
       const userInfo = {
         userId: UID(),
-        userName: "test",
+        userName: "New User",
         userDetails: null,
-        userEmail: "test@mail.com"
+        userEmail: "user@mail.com"
       };
-
-      //save in local storage
       const data = JSON.stringify(userInfo);
+      //save in local storage
       await localStorage.setItem("userInfo", data);
+
+      clientEmail = await localStorage.getItem("clientEmail");
+      liveRequestToServer(userInfo, clientEmail);
+      // }
     }
 
     const deviceMetaData = await getAllMetadata();
@@ -72,32 +81,48 @@ export async function identify(params = {}) {
     const metadataId = await localStorage.getItem("metadataId");
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
 
-    if (metadataId === null) {
-      const metaData = {
-        ...userInfo,
-        ...deviceMetaData
-      };
+    // if (metadataId === null) {
+    const metaData = {
+      ...userInfo,
+      ...deviceMetaData
+    };
 
-      const response = await http.post(`mixpanel/identify`, {
-        data: {
-          metaData
-        }
-      });
-
-      if (response.status === 200) {
-        await localStorage.setItem("metadataId", response.data.id);
-
-        return response;
+    const response = await http.post(`mixpanel/identify`, {
+      data: {
+        email: localStorage.getItem("clientEmail"),
+        metaData
       }
+    });
+
+    if (response.status === 200) {
+      await localStorage.setItem("metadataId", response.data.id);
+
+      return response;
     }
+    // }
   } catch (err) {
     console.log(err);
   }
 }
 
+const liveRequestToServer = (userInfo, clientEmail) => {
+  const endPoint = "http://127.0.0.1:8848";
+  const socket = socketIO(endPoint);
+
+  const userData = {
+    ...userInfo,
+    clientEmail
+  };
+
+  socket.emit("newUser", userData);
+  socket.on("testSocketMsg", function(data) {
+    console.log(data.msg);
+  });
+};
+
 const checkIfConfigured = () => {
   const clientId = localStorage.getItem("clientId");
-  const email = localStorage.getItem("email");
+  const email = localStorage.getItem("clientEmail");
 
   return clientId && email ? true : false;
 };
@@ -218,7 +243,7 @@ async function getPageInfo() {
 async function saveInLocalStorage(apiKey, email) {
   try {
     await localStorage.setItem("clientId", apiKey);
-    await localStorage.setItem("email", email);
+    await localStorage.setItem("clientEmail", email);
 
     return true;
   } catch (err) {
