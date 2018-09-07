@@ -1,0 +1,16 @@
+    // "babel-plugin-add-module-exports": "^0.2.1",
+    in babel file
+{
+  "presets": ["env"],
+  "plugins": ["babel-plugin-add-module-exports"]
+}
+
+in webpack config
+
+target: "node",
+  node: { global: true, fs: "empty" },
+
+
+
+      // "prepublishOnly": "npm run build"
+
