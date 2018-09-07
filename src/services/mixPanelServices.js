@@ -181,6 +181,7 @@ export async function track(params = {}) {
 
       if (res.status === 200) {
         emitActivity({
+          clientEmail,
           trackData,
           metaData,
           userInfo
@@ -244,6 +245,7 @@ export async function page(params) {
 
       if (res.status === 200) {
         emitActivity({
+          clientEmail,
           pageData,
           metaData,
           userInfo
