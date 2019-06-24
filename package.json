@@ -1,18 +1,22 @@
 {
-  "name": "mix-panel-client",
-  "version": "1.0.0",
-  "description": "Starter pack for compiling ES6+ apps to ES5",
-  "main": "app.js",
+  "name": "mixpanel-user-library",
+  "version": "0.1.6",
+  "description": "User-library for lft-mixpanel",
+  "browser": "lib/index.js",
+  "unpkg": "umd/index.js",
+  "repository": "https://github.com/shrijan00003/mix-panel-client",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
-    "build": "webpack --mode production --progress"
+    "start": "yarn build && webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
+    "build": "webpack --mode production --progress",
+    "prepublishOnly": "yarn build || npm run build"
   },
-  "author": "",
+  "author": "Shrijan Tripathi and Team <shrijan00003@gmail.com> ",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
@@ -23,6 +27,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
+    "socket.io-client": "^2.1.1",
     "uuid": "^3.3.2"
   }
 }
